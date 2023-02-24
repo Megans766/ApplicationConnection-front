@@ -4,6 +4,15 @@
 
 /* ---------===== auth models =====--------- */
 
+export interface Connect {
+  date: Date;
+  company: string;
+  position: string;
+  followUp: boolean;
+  interview: boolean;
+  response: boolean;
+  profileId: number;
+}
 export interface Profile {
   name: string;
   photo?: string;

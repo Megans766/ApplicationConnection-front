@@ -1,37 +1,63 @@
-// npm packages
-import { useState, useEffect } from 'react'
-
-// services
-import * as profileService from '../../services/profileService'
+// npm modules
+import { useState } from 'react'
+// import { AppEntryFormData } from '../../types/forms';
 
 // types
-import { Profile } from '../../types/models'
+import { Profile, Connect } from '../../types/models'
 
-const Profiles = (): JSX.Element => {
-  const [profiles, setProfiles] = useState<Profile[]>([])
+interface ProfilesProps {
+  profile: Profile[];
+}
 
-  useEffect((): void => {
-    const fetchProfiles = async (): Promise<void> => {
-      try {
-        const profileData: Profile[] = await profileService.getAllProfiles()
-        setProfiles(profileData)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchProfiles()
-  }, [])
+const Profiles = (props: ProfilesProps): JSX.Element => {
+  const { profile } = props
 
-  if(!profiles.length) return <p>No profiles yet</p>
+  // const [formData, setFormData] = useState<AppEntryFormData>({
+  //   date: Date,
+  //   company: '',
+  //   position: '',
+  //   followUp: Boolean,
+  //   interview: Boolean,
+  //   response: Boolean,
+  //   profileId: Number
+  // })
+
+  if (!profile) return <p>Please Log In  or Sign Up!</p>
 
   return (
-    <>
-      <h1>Hello. This is a list of all the profiles.</h1>
-      {profiles.map((profile: Profile) =>
-        <p key={profile.id}>{profile.name}</p>
-      )}
-    </>
+    <main>
+      <img src={profile.photo} alt='' />
+      <h1>Welcome, {profile.name}</h1>
+      <section>
+        <h3>Track Your Applications</h3>
+        <form>
+          <label>Date:</label>
+          <input 
+            name='date'
+            type='date'
+            value={connect.date}
+          />
+          <label>Compnay:</label>
+          <input 
+            name='company'
+            type='string'
+            value={profile.application.company}
+          />
+          <label>Position:</label>
+          <input 
+            name='position'
+            type='string'
+            value={profile.application.company}
+          />
+          <label>Follow Up</label>
+          <input 
+            name='followUp'
+            type='boolean'
+          />
+        </form>
+      </section>
+    </main>
   )
 }
- 
+
 export default Profiles
