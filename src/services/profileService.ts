@@ -20,8 +20,10 @@ async function getAllProfiles(): Promise<Profile[]> {
 async function getProfile(): Promise<Profile[]> {
   try {
     const res = await fetch(`${BASE_URL}/details`, {
-      headers: { 'Authorization': `Bearer ${tokenService.getToken()}` },
-      method: 'GET'
+      method: 'GET',
+      headers: { 
+        'Authorization': `Bearer ${tokenService.getToken()}` 
+      }
     })
     return await res.json() as Profile[]
   } catch (error) {

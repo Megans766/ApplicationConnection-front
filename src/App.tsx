@@ -16,18 +16,20 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 // services
 import * as authService from './services/authService'
 import * as profileService from './services/profileService'
+import * as connectService from './services/connectServive'
 
 // stylesheets
 import './App.css'
 
 // types
-import { User, Profile } from './types/models'
+import { User, Profile, Connect } from './types/models'
 
 function App(): JSX.Element {
   const navigate = useNavigate()
   
   const [user, setUser] = useState<User | null>(authService.getUser())
   const [profile, setProfile] = useState<Profile[]>([])
+  const [appStatus, setAppStatus] = useState<Connect[]>([])
 
   useEffect((): void => {
     const fetchProfile = async (): Promise<void> => {
@@ -68,7 +70,10 @@ function App(): JSX.Element {
           path="/details"
           element={
             <ProtectedRoute user={user}>
-              <Profiles profile={profile} />
+              <Profiles 
+                profile={profile} 
+                user={user} 
+                appStatus={appStatus}/>
             </ProtectedRoute>
           }
         />

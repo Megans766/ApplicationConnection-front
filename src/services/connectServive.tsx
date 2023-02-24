@@ -23,6 +23,22 @@ async function create(formData: AppEntryFormData): Promise<Profile> {
   }
 }
 
+async function index(): Promise<Profile> {
+  try {
+    const res = await fetch(`${BASE_URL}/details`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    return await res.json()
+  } catch (error) {
+    throw error
+  }
+}
+
 export { 
   create,
+  index,
 }

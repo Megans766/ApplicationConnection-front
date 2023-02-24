@@ -11,7 +11,6 @@ export interface Connect {
   followUp: boolean;
   interview: boolean;
   response: boolean;
-  profileId: number;
 }
 export interface Profile {
   name: string;
