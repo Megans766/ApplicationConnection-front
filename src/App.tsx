@@ -8,7 +8,7 @@ import Login from './pages/Login/Login'
 import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
-import Connect from './pages/Connect/Connect'
+import NewConnect from './pages/NewConnect/NewConnect'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -16,14 +16,14 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
-// import * as profileService from './services/profileService'
 import * as connectService from './services/connectService'
 
 // stylesheets
 import './App.css'
 
 // types
-import { User } from './types/models'
+import { Connect, User } from './types/models'
+// import { AppEntryFormData } from './types/forms'
 
 function App(): JSX.Element {
   const navigate = useNavigate()
@@ -32,18 +32,32 @@ function App(): JSX.Element {
 
   const [appStatus, setAppStatus] = useState<Connect[]>([])
 
+  // useEffect(() => {
+  //   const fetchAllApps = async (): Promise<void> => {
+  //     try {
+  //       const appData: Connect = await connectService.index()
+  //       setAppStatus(appData)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   fetchAllApps()
+  // },[])
+
+  const fetchAllApps = async () => {
+    const appData = await connectService.index()
+    setAppStatus(appData)
+  }
+
   useEffect(() => {
-    const fetchAllApps = async (): Promise<void> => {
-      try {
-        const appData: Connect[] = await connectService.index()
-        setAppStatus(appData)
-      } catch (error) {
-        console.log(error)
-        
-      }
-    }
-    fetchAllApps
-  },[])
+    fetchAllApps()
+  }, [])
+
+  const handleAddApp = async (formData: any): Promise<void> => {
+    const newApp: Connect = await connectService.create(formData)
+    setAppStatus([newApp, ...appStatus])
+    navigate('/connects')
+  }
 
   const handleLogout = (): void => {
     authService.logout()
@@ -88,7 +102,12 @@ function App(): JSX.Element {
           path="/connects"
           element={
             <ProtectedRoute user={user}>
-              <Connect user={user} appStatus={appStatus}/>
+              <NewConnect 
+                user={user} 
+                appStatus={appStatus} 
+                handleAddApp={handleAddApp}
+                fetchAllApps={fetchAllApps}
+              />
             </ProtectedRoute>
           }
         />

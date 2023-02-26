@@ -3,6 +3,7 @@ import { Connect } from "../../types/models";
 
 interface ConnectCardProps {
   appStatus: Connect;
+  fetchAllApps: () => void
 }
 
 const ConnectCard = (props: ConnectCardProps): JSX.Element => {

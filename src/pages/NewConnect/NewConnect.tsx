@@ -1,26 +1,30 @@
 //npm modules
-import { useState, useEffect } from 'react'
-
-//services
-import * as connectService from '../../services/connectService'
+import { useState } from 'react'
 
 //types 
 import { Connect, User } from '../../types/models'
-import { AppEntryFormData } from '../../types/forms'
-
-//components
-import ConnectCard from '../../components/ConnectCard/ConnectCard'
+import ConnectList from '../ConnectList/ConnectList';
 
 interface ConnectProps {
+  handleAddApp: (AppEntry: AppEntry) => void
   user: User | null;
   appStatus: Connect[];
+  fetchAllApps: () => void
 }
 
-const Connects = (props: ConnectProps): JSX.Element => {
+interface AppEntry {
+  date?: Date;
+  company: string;
+  position: string;
+  followUp: string;
+  interview: string;
+  response: string;
+}
+
+const NewConnect = (props: ConnectProps): JSX.Element => {
   const { user, appStatus } = props
 
-  // const [appList, setAppList] = useState<Connect[]>([])
-  const [formData, setFormData] = useState<AppEntryFormData>({
+  const [formData, setFormData] = useState<AppEntry>({
     date: new Date,
     company: '',
     position: '',
@@ -35,11 +39,19 @@ const Connects = (props: ConnectProps): JSX.Element => {
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
-    try {
-      await connectService.create(formData)
-    } catch (error) {
-      console.log(error)
-    }
+    props.handleAddApp(formData)
+    setFormData({
+      date: new Date,
+      company: '',
+      position: '',
+      followUp: '',
+      interview: '',
+      response: ''
+    })
+  }
+
+  function fetchAllApps(): void {
+    throw new Error('Function not implemented.');
   }
 
   // if (!appStatus.length) 
@@ -75,36 +87,36 @@ const Connects = (props: ConnectProps): JSX.Element => {
           <label>Follow Up</label>
           <input 
             name='followUp'
-            type='boolean'
+            type='string'
             value={formData.followUp}
             onChange={handleChange}
           />
           <label>Interview:</label>
           <input 
             name='interview'
-            type='boolean'
+            type='string'
             value={formData.interview}
             onChange={handleChange}
           />
           <label>Response:</label>
           <input 
             name='response'
-            type='boolean'
+            type='string'
             value={formData.response}
             onChange={handleChange}
           />
           <button>Submit</button>
         </form>
-        {/* <ApplicationList profile={profile} appStatus={appStatus} /> */}
       </section>
-      {appStatus.map((appStatus: Connect) => 
-        <ConnectCard 
-          key={appStatus.profileId}
+      {/* {appStatus.map((appStatus: Connect) =>  */}
+        <ConnectList 
+          // key={appStatus.profileId}
           appStatus={appStatus}
+          fetchAllApps={fetchAllApps}
         />
-      )}
+      {/* )} */}
     </main>
   )
 }
 
-export default Connects
+export default NewConnect
