@@ -8,6 +8,7 @@ import Login from './pages/Login/Login'
 import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
+import Connect from './pages/Connect/Connect'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -15,33 +16,34 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
-import * as profileService from './services/profileService'
-import * as connectService from './services/connectServive'
+// import * as profileService from './services/profileService'
+import * as connectService from './services/connectService'
 
 // stylesheets
 import './App.css'
 
 // types
-import { User, Profile, Connect } from './types/models'
+import { User } from './types/models'
 
 function App(): JSX.Element {
   const navigate = useNavigate()
   
   const [user, setUser] = useState<User | null>(authService.getUser())
-  const [profile, setProfile] = useState<Profile[]>([])
+
   const [appStatus, setAppStatus] = useState<Connect[]>([])
 
-  useEffect((): void => {
-    const fetchProfile = async (): Promise<void> => {
+  useEffect(() => {
+    const fetchAllApps = async (): Promise<void> => {
       try {
-        const profileData: Profile[] = await profileService.getProfile()
-        setProfile(profileData)
+        const appData: Connect[] = await connectService.index()
+        setAppStatus(appData)
       } catch (error) {
         console.log(error)
+        
       }
     }
-    if (user) fetchProfile()
-  }, [user])
+    fetchAllApps
+  },[])
 
   const handleLogout = (): void => {
     authService.logout()
@@ -67,13 +69,10 @@ function App(): JSX.Element {
           element={<Login handleAuthEvt={handleAuthEvt} />}
         />
         <Route
-          path="/details"
+          path="/profiles"
           element={
             <ProtectedRoute user={user}>
-              <Profiles 
-                profile={profile} 
-                user={user} 
-                appStatus={appStatus}/>
+              <Profiles />
             </ProtectedRoute>
           }
         />
@@ -82,6 +81,14 @@ function App(): JSX.Element {
           element={
             <ProtectedRoute user={user}>
               <ChangePassword handleAuthEvt={handleAuthEvt} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/connects"
+          element={
+            <ProtectedRoute user={user}>
+              <Connect user={user} appStatus={appStatus}/>
             </ProtectedRoute>
           }
         />

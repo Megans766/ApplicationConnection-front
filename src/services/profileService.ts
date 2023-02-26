@@ -17,20 +17,6 @@ async function getAllProfiles(): Promise<Profile[]> {
   }
 }
 
-async function getProfile(): Promise<Profile[]> {
-  try {
-    const res = await fetch(`${BASE_URL}/details`, {
-      method: 'GET',
-      headers: { 
-        'Authorization': `Bearer ${tokenService.getToken()}` 
-      }
-    })
-    return await res.json() as Profile[]
-  } catch (error) {
-    throw error
-  }
-}
-
 async function addPhoto(
   photoData: FormData, 
   profileId: number
@@ -49,4 +35,18 @@ async function addPhoto(
   }
 }
 
-export { getAllProfiles, getProfile, addPhoto }
+async function getProfile(): Promise<Profile[]> {
+  try {
+    const res = await fetch(`${BASE_URL}/details`, {
+      method: 'GET',
+      headers: { 
+        'Authorization': `Bearer ${tokenService.getToken()}` 
+      }
+    })
+    return await res.json() as Profile[]
+  } catch (error) {
+    throw error
+  }
+}
+
+export { getAllProfiles, addPhoto, getProfile }

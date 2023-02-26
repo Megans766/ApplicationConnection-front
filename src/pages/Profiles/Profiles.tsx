@@ -1,25 +1,36 @@
-// components
-import ProfileCard from '../../components/ProfileCard/ProfileCard'
+// npm packages
+import { useState, useEffect } from 'react'
+
+// services
+import * as profileService from '../../services/profileService'
 
 // types
-import { Connect, Profile, User } from '../../types/models'
+import { Profile } from '../../types/models'
 
-interface ProfilesProps {
-  profile: Profile[];
-  user: User | null;
-  appStatus: Connect[];
-}
+const Profiles = (): JSX.Element => {
+  const [profiles, setProfiles] = useState<Profile[]>([])
 
-const Profiles = (props: ProfilesProps): JSX.Element => {
-  const { profile, user, appStatus } = props
+  useEffect((): void => {
+    const fetchProfiles = async (): Promise<void> => {
+      try {
+        const profileData: Profile[] = await profileService.getAllProfiles()
+        setProfiles(profileData)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchProfiles()
+  }, [])
 
-  // if (!profiles) return <p>Please Log In  or Sign Up!</p>
+  if(!profiles.length) return <p>No profiles yet</p>
 
   return (
-    <main>
-      <h1>Hello {user ? user.name : ''}</h1>
-        <ProfileCard profile={profile} appStatus={appStatus}/>
-    </main>
+    <>
+      <h1>Hello. This is a list of all the profiles.</h1>
+      {profiles.map((profile: Profile) =>
+        <p key={profile.id}>{profile.name}</p>
+      )}
+    </>
   )
 }
 
