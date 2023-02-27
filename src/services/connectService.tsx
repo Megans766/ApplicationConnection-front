@@ -52,8 +52,23 @@ async function update(formData: any): Promise<any> {
   }
 }
 
+async function deleteAppEntry(appId: any): Promise<any> {
+  try {
+    const res = await fetch(`${BASE_URL}/${appId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+      }
+    })
+    return res.json()
+  } catch(error) {
+    throw error
+  }
+}
+
 export { 
   create,
   index,
-  update
+  update,
+  deleteAppEntry
 }

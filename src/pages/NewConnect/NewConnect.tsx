@@ -9,7 +9,8 @@ interface ConnectProps {
   handleAddApp: (AppEntry: AppEntry) => void
   user: User | null;
   appStatus: Connect[];
-  fetchAllApps: () => void
+  handleDeleteApplication: (appId: number) => void
+  // fetchAllApps: () => void
 }
 
 interface AppEntry {
@@ -50,7 +51,11 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
     })
   }
 
-  function fetchAllApps(): void {
+  // function fetchAllApps(): void {
+  //   throw new Error('Function not implemented.');
+  // }
+
+  function handleDeleteApplication(appId: number): void {
     throw new Error('Function not implemented.');
   }
 
@@ -64,12 +69,12 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
         <h3>Track Your Applications</h3>
         <form onSubmit={handleSubmit}>
           <label>Date:</label>
-          <input 
+          {/* <input 
             name='date'
             type='date'
             value={formData.date}
             onChange={handleChange}
-          />
+          /> */}
           <label>Company:</label>
           <input 
             name='company'
@@ -108,11 +113,11 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
           <button>Submit</button>
         </form>
       </section>
-      {/* {appStatus.map((appStatus: Connect) =>  */}
         <ConnectList 
-          // key={appStatus.profileId}
           appStatus={appStatus}
-          fetchAllApps={fetchAllApps}
+          handleDeleteApplication={props.handleDeleteApplication}
+          user={user}
+          // fetchAllApps={fetchAllApps}
         />
       {/* )} */}
     </main>

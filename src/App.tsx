@@ -59,6 +59,12 @@ function App(): JSX.Element {
     navigate('/connects')
   }
 
+  const handleDeleteApplication = async (appId: number): Promise<void> => {
+    const deletedApp = await connectService.deleteAppEntry(appId)
+    setAppStatus( appStatus.filter(() => { deletedApp.appId !== appId }))
+    navigate('/connects')
+  }
+
   const handleLogout = (): void => {
     authService.logout()
     setUser(null)
@@ -106,7 +112,8 @@ function App(): JSX.Element {
                 user={user} 
                 appStatus={appStatus} 
                 handleAddApp={handleAddApp}
-                fetchAllApps={fetchAllApps}
+                handleDeleteApplication={handleDeleteApplication}
+                // fetchAllApps={fetchAllApps}
               />
             </ProtectedRoute>
           }
