@@ -1,12 +1,12 @@
 /* ---------==== custom forms ====--------- */
-// export interface AppEntryFormData {
-//   date?: Date | number | string;
-//   company: string;
-//   position: string;
-//   followUp: boolean | string;
-//   interview: boolean | string;
-//   response: boolean | string;
-// }
+export interface AppEntryFormData {
+  date?: Date | number | string;
+  company: string;
+  position: string;
+  followUp: boolean | string;
+  interview: boolean | string;
+  response: boolean | string;
+}
 
 /* ---------===== auth forms =====--------- */
 

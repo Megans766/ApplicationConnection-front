@@ -14,8 +14,8 @@ interface ConnectCardProps {
 const ConnectCard = (props: ConnectCardProps): JSX.Element => {
   const { appStatus, user } = props
 
-  if (!appStatus.length) 
-  return <p>No Applications To Track Yet</p>
+  // if (!appStatus.length) 
+  // return <p>No Applications To Track Yet</p>
 
   return (
     <article>

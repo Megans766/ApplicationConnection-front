@@ -23,6 +23,7 @@ import './App.css'
 
 // types
 import { Connect, User } from './types/models'
+import { AppEntryFormData } from './types/forms'
 // import { AppEntryFormData } from './types/forms'
 
 function App(): JSX.Element {
@@ -53,16 +54,29 @@ function App(): JSX.Element {
     fetchAllApps()
   }, [])
 
-  const handleAddApp = async (formData: any): Promise<void> => {
+  const handleAddApp = async (formData: AppEntryFormData): Promise<void> => {
     const newApp: Connect = await connectService.create(formData)
     setAppStatus([newApp, ...appStatus])
     navigate('/connects')
   }
 
+  // const handleDeleteApplication = async (appId: number): Promise<void> => {
+  //   const deletedApp = await connectService.deleteAppEntry(appId)
+     // setAppStatus( appStatus.filter(() => { deletedApp.appId !== appId }))
+     // setAppStatus({...appStatus, appStatus.filter(() => { deletedApp.appId !== appId })})
+
+  //   setAppStatus({...appStatus})
+     // navigate('/connects')
+  // }
+
   const handleDeleteApplication = async (appId: number): Promise<void> => {
-    const deletedApp = await connectService.deleteAppEntry(appId)
-    setAppStatus( appStatus.filter(() => { deletedApp.appId !== appId }))
-    navigate('/connects')
+    try {
+      await connectService.deleteAppEntry(appId)
+      const updatedAppList = appStatus.filter((app: any) => app.id !== appId)
+      setAppStatus(updatedAppList)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleLogout = (): void => {
