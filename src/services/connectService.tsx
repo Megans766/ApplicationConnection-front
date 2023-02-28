@@ -1,6 +1,5 @@
 // services
 import { AppEntryFormData } from '../types/forms'
-import { Connect } from '../types/models'
 import * as tokenService from './tokenService'
 
 // types
@@ -18,29 +17,29 @@ async function create(formData: any): Promise<any> {
       },
       body: JSON.stringify(formData)
     })
-    return await res.json() as Connect[]
+    return await res.json() 
   } catch (error) {
     throw error
   }
 }
 
-async function index(): Promise<Connect[]> {
+async function index(): Promise<any> {
   try {
     const res = await fetch(BASE_URL, {
       headers: {
         'Authorization': `Bearer ${tokenService.getToken()}`,
-        // 'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       }
     })
-    return await res.json() as Connect[]
+    return await res.json()
   } catch (error) {
     throw error
   }
 }
 
-async function update(formData: AppEntryFormData): Promise<Connect> {
+async function update(formData: any, appId: number): Promise<any> {
   try {
-    const res = await fetch(`${BASE_URL}/${formData.id}`, {
+    const res = await fetch(`${BASE_URL}/${appId}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${tokenService.getToken()}`,
@@ -48,13 +47,13 @@ async function update(formData: AppEntryFormData): Promise<Connect> {
       },
       body: JSON.stringify(formData)
     })
-    return await res.json()
+    return res.json()
   } catch(error) {
     throw error
   }
 }
 
-async function deleteAppEntry(appId: number): Promise<void> {
+async function deleteAppEntry(appId: any): Promise<any> {
   try {
     const res = await fetch(`${BASE_URL}/${appId}`, {
       method: 'DELETE',
@@ -62,7 +61,7 @@ async function deleteAppEntry(appId: number): Promise<void> {
         'Authorization': `Bearer ${tokenService.getToken()}`,
       }
     })
-    res.json()
+    return res.json()
   } catch(error) {
     throw error
   }

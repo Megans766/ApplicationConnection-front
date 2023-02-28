@@ -1,52 +1,57 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-
 // types
-import { Connect, User } from "../../types/models"
+import { Connect } from "../../types/models"
 
 interface ConnectCardProps {
-  user: User | null
-  appStatus: Connect;
+  appStatus: Connect[];
   handleDeleteApplication: (appId: number) => void
+  handleUpdateApplication: (appId: number) => void
 }
 
-const ConnectCard: React.FC<ConnectCardProps> = ({ user, appStatus, handleDeleteApplication}) => {
-  const [visible, setVisible] = useState(false)
+const ConnectCard = (props: ConnectCardProps): JSX.Element => {
+  const { appStatus } = props
 
-  const handleToggle = () => {
-    setVisible(!visible)
-  }
+  // if (!appStatus.length) 
+  // <p>No Applications To Track Yet</p>
 
   return (
     <article>
       <h3>Application Status</h3>
-      <button onClick={handleToggle}>
-        Show
-      </button>
-      {!visible &&
-        <article>
-          {/* {appStatus.map((app: any) => */}
-            {/* <div key={app.id}> */}
-              <p>{appStatus.date}</p>
-              <p>{appStatus.company}</p>
-              <p>{appStatus.position}</p>
-              <p>{appStatus.followUp}</p>
-              <p>{appStatus.interview}</p>
-              <p>{appStatus.response}</p>
+      <div>
+        {appStatus.map((app: any) =>
+          <div key={app.id}>
+            <p>{app.date}</p>
+            <p>{app.company}</p>
+            <p>{app.position}</p>
 
-              {appStatus.profileId === user?.profile.id && 
-              <div>
-                <Link to={`/connects/${appStatus.id}`} >
-                  <button>Edit Application</button>
-                </Link>
-                <button onClick={() => handleDeleteApplication(appStatus.id)}>
-                  Delete Applicaiton 
-                </button>
-            </div>
-              }
-          {/* )} */}
-        </article>
-      }
+            <p>You {app.followUp.isComplete ? 'Have Followed Up' : 'Have Not Followed Up'}</p>
+            {!app.followUp.isComplete &&
+              <button onClick={() => props.handleUpdateApplication(app.id)}>
+                Complete Follow Up
+              </button>
+            }
+
+            <p>
+              {app.interview.isComplete ? 'Got An Interview' : 'Waiting To Receive Interview'}
+            </p>
+            <button onClick={() => props.handleUpdateApplication(app.id)}>
+              Complete Interview
+            </button>
+
+            <p>
+              You {app.response ? 'Received Employer FeedBack' : 'Did Not Receive Employer Feedback'}
+            </p>
+            <button onClick={() => props.handleUpdateApplication(app.id)}>
+              Received Feedback
+            </button>
+
+            {/* {appStatus.appId === props.user.id && */}
+              <button onClick={() => props.handleDeleteApplication(app.id)}>
+                Delete Applicaiton 
+              </button>
+            {/*  } */}
+          </div>
+        )}
+      </div>
     </article>
   )
 }

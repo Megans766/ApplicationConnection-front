@@ -1,18 +1,13 @@
 /* ---------===== custom props ====--------- */
 
 export interface Connect {
-  id: number;
-  date?: string;
+  date: Date;
   company: string;
   position: string;
-  followUp?: string;
-  interview?: string;
-  response?: string;
-  profileId?: { 
-    id: number;
-    name: string;
-    photo: string;
-  }
+  followUp: boolean;
+  interview: boolean;
+  response: boolean;
+  profileId: number;
 }
 
 /* ---------===== auth models =====--------- */
