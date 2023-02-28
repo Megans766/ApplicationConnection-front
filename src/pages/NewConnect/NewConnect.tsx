@@ -1,16 +1,18 @@
 //npm modules
 import { useState } from 'react'
+import { AppEntryFormData } from '../../types/forms';
 
 //types 
 import { Connect, User } from '../../types/models'
+
 import ConnectList from '../ConnectList/ConnectList';
 
 interface ConnectProps {
-  handleAddApp: (AppEntry: AppEntry) => void
   user: User | null;
   appStatus: Connect[];
+  handleAddApp: (AppEntry: AppEntry) => void
   handleDeleteApplication: (appId: number) => void
-  // fetchAllApps: () => void
+  handleUpdateApplication: (appId: number) => void
 }
 
 interface AppEntry {
@@ -41,6 +43,7 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     props.handleAddApp(formData)
+    
     setFormData({
       date: new Date,
       company: '',
@@ -51,16 +54,8 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
     })
   }
 
-  // function fetchAllApps(): void {
-  //   throw new Error('Function not implemented.');
-  // }
-
-  function handleDeleteApplication(appId: number): void {
-    throw new Error('Function not implemented.');
-  }
-
   // if (!appStatus.length) 
-  // return <p>No Applications To Track Yet</p>
+  // <p>No Applications To Track Yet</p>
 
   return (
     <main>
@@ -68,8 +63,8 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
       <section>
         <h3>Track Your Applications</h3>
         <form onSubmit={handleSubmit}>
-          <label>Date:</label>
-          {/* <input 
+          {/* <label>Date:</label>
+          <input 
             name='date'
             type='date'
             value={formData.date}
@@ -89,12 +84,13 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
             value={formData.position}
             onChange={handleChange}
           />
-          <label>Follow Up</label>
+          <label>Follow Up:</label>
           <input 
             name='followUp'
             type='string'
             value={formData.followUp}
             onChange={handleChange}
+            placeholder='true or false'
           />
           <label>Interview:</label>
           <input 
@@ -102,6 +98,7 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
             type='string'
             value={formData.interview}
             onChange={handleChange}
+            placeholder='true or false'
           />
           <label>Response:</label>
           <input 
@@ -109,6 +106,7 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
             type='string'
             value={formData.response}
             onChange={handleChange}
+            placeholder='true or false'
           />
           <button>Submit</button>
         </form>
@@ -116,10 +114,8 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
         <ConnectList 
           appStatus={appStatus}
           handleDeleteApplication={props.handleDeleteApplication}
-          user={user}
-          // fetchAllApps={fetchAllApps}
+          handleUpdateApplication={props.handleUpdateApplication}
         />
-      {/* )} */}
     </main>
   )
 }

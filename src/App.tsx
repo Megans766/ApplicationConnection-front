@@ -24,26 +24,12 @@ import './App.css'
 // types
 import { Connect, User } from './types/models'
 import { AppEntryFormData } from './types/forms'
-// import { AppEntryFormData } from './types/forms'
 
 function App(): JSX.Element {
   const navigate = useNavigate()
   
   const [user, setUser] = useState<User | null>(authService.getUser())
-
   const [appStatus, setAppStatus] = useState<Connect[]>([])
-
-  // useEffect(() => {
-  //   const fetchAllApps = async (): Promise<void> => {
-  //     try {
-  //       const appData: Connect = await connectService.index()
-  //       setAppStatus(appData)
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //   fetchAllApps()
-  // },[])
 
   const fetchAllApps = async () => {
     const appData = await connectService.index()
@@ -60,19 +46,23 @@ function App(): JSX.Element {
     navigate('/connects')
   }
 
-  // const handleDeleteApplication = async (appId: number): Promise<void> => {
-  //   const deletedApp = await connectService.deleteAppEntry(appId)
-     // setAppStatus( appStatus.filter(() => { deletedApp.appId !== appId }))
-     // setAppStatus({...appStatus, appStatus.filter(() => { deletedApp.appId !== appId })})
-
-  //   setAppStatus({...appStatus})
-     // navigate('/connects')
-  // }
+  const handleUpdateApplciation = async (appId: number) => {
+    const appData = {
+      isComplete: true
+    }
+    const updatedApp = await connectService.update(appData, appId)
+    const updatedAppList = appStatus.map((app: any) => {
+      return app.id === updatedApp.appId
+      ? updatedApp
+      : app
+      })
+    setAppStatus(updatedAppList)
+  }
 
   const handleDeleteApplication = async (appId: number): Promise<void> => {
     try {
       await connectService.deleteAppEntry(appId)
-      const updatedAppList = appStatus.filter((app: any) => app.id !== appId)
+      const updatedAppList = appStatus.filter((app: any) => app.id === appId)
       setAppStatus(updatedAppList)
     } catch (error) {
       console.log(error)
@@ -123,11 +113,11 @@ function App(): JSX.Element {
           element={
             <ProtectedRoute user={user}>
               <NewConnect 
-                user={user} 
-                appStatus={appStatus} 
+                user={user}
+                appStatus={appStatus}
                 handleAddApp={handleAddApp}
                 handleDeleteApplication={handleDeleteApplication}
-                // fetchAllApps={fetchAllApps}
+                handleUpdateApplication={handleUpdateApplciation} 
               />
             </ProtectedRoute>
           }

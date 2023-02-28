@@ -1,4 +1,5 @@
 // services
+import { AppEntryFormData } from '../types/forms'
 import * as tokenService from './tokenService'
 
 // types
@@ -36,9 +37,9 @@ async function index(): Promise<any> {
   }
 }
 
-async function update(formData: any): Promise<any> {
+async function update(formData: any, appId: number): Promise<any> {
   try {
-    const res = await fetch(BASE_URL, {
+    const res = await fetch(`${BASE_URL}/${appId}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${tokenService.getToken()}`,

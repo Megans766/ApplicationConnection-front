@@ -1,9 +1,5 @@
 /* ---------===== custom props ====--------- */
 
-
-
-/* ---------===== auth models =====--------- */
-
 export interface Connect {
   date: Date;
   company: string;
@@ -13,6 +9,9 @@ export interface Connect {
   response: boolean;
   profileId: number;
 }
+
+/* ---------===== auth models =====--------- */
+
 export interface Profile {
   name: string;
   photo?: string;

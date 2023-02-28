@@ -1,21 +1,17 @@
 // types
-import { Connect, User } from "../../types/models"
-
-//services
-import * as connectService from '../../services/connectService'
+import { Connect } from "../../types/models"
 
 interface ConnectCardProps {
   appStatus: Connect[];
-  user: User | null;
   handleDeleteApplication: (appId: number) => void
-  // fetchAllApps: () => void
+  handleUpdateApplication: (appId: number) => void
 }
 
 const ConnectCard = (props: ConnectCardProps): JSX.Element => {
-  const { appStatus, user } = props
+  const { appStatus } = props
 
   // if (!appStatus.length) 
-  // return <p>No Applications To Track Yet</p>
+  // <p>No Applications To Track Yet</p>
 
   return (
     <article>
@@ -26,13 +22,32 @@ const ConnectCard = (props: ConnectCardProps): JSX.Element => {
             <p>{app.date}</p>
             <p>{app.company}</p>
             <p>{app.position}</p>
-            <p>{app.followUp}</p>
-            <p>{app.interview}</p>
-            <p>{app.response}</p>
+
+            <p>You {app.followUp.isComplete ? 'Have Followed Up' : 'Have Not Followed Up'}</p>
+            {!app.followUp.isComplete &&
+              <button onClick={() => props.handleUpdateApplication(app.id)}>
+                Complete Follow Up
+              </button>
+            }
+
+            <p>
+              {app.interview.isComplete ? 'Got An Interview' : 'Waiting To Receive Interview'}
+            </p>
+            <button onClick={() => props.handleUpdateApplication(app.id)}>
+              Complete Interview
+            </button>
+
+            <p>
+              You {app.response ? 'Received Employer FeedBack' : 'Did Not Receive Employer Feedback'}
+            </p>
+            <button onClick={() => props.handleUpdateApplication(app.id)}>
+              Received Feedback
+            </button>
+
             {/* {appStatus.appId === props.user.id && */}
-            <button>Update</button>
-              <button 
-                onClick={() => props.handleDeleteApplication(app.id)}>Delete</button>
+              <button onClick={() => props.handleDeleteApplication(app.id)}>
+                Delete Applicaiton 
+              </button>
             {/*  } */}
           </div>
         )}
