@@ -9,6 +9,7 @@ import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
 import NewConnect from './pages/NewConnect/NewConnect'
+import EditConnect from './pages/EditConnect/editConnect'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -31,42 +32,40 @@ function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
   const [appStatus, setAppStatus] = useState<Connect[]>([])
 
-  const fetchAllApps = async () => {
-    const appData = await connectService.index()
-    setAppStatus(appData)
-  }
-
-  useEffect(() => {
+  
+  useEffect((): void => {
+    const fetchAllApps = async (): Promise<void> => {
+      try {
+        const appData: Connect[] = await connectService.index()
+        setAppStatus(appData)
+      } catch (error) {
+        console.log(error);
+      }
+    }
     fetchAllApps()
   }, [])
 
   const handleAddApp = async (formData: AppEntryFormData): Promise<void> => {
-    const newApp: Connect = await connectService.create(formData)
+    const newApp = await connectService.create(formData)
     setAppStatus([newApp, ...appStatus])
     navigate('/connects')
   }
 
-  const handleUpdateApplciation = async (appId: number) => {
-    const appData = {
-      isComplete: true
-    }
-    const updatedApp = await connectService.update(appData, appId)
-    const updatedAppList = appStatus.map((app: any) => {
-      return app.id === updatedApp.appId
-      ? updatedApp
-      : app
-      })
-    setAppStatus(updatedAppList)
+  const handleUpdateApplciation = async (formData: AppEntryFormData) => {
+    const updatedApp = await connectService.update(formData)
+    setAppStatus(appStatus.map((app) => ((formData.id === app.id) ? updatedApp : app)))
+    navigate('/connects')
   }
 
   const handleDeleteApplication = async (appId: number): Promise<void> => {
-    try {
+    // try {
       await connectService.deleteAppEntry(appId)
-      const updatedAppList = appStatus.filter((app: any) => app.id === appId)
-      setAppStatus(updatedAppList)
-    } catch (error) {
-      console.log(error)
-    }
+      appStatus.filter((app) => app.id !== appId)
+      // setAppStatus(updatedAppList)
+      navigate('/connects')
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   const handleLogout = (): void => {
@@ -117,6 +116,15 @@ function App(): JSX.Element {
                 appStatus={appStatus}
                 handleAddApp={handleAddApp}
                 handleDeleteApplication={handleDeleteApplication}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/connects/:id"
+          element={
+            <ProtectedRoute user={user}>
+              <EditConnect 
                 handleUpdateApplication={handleUpdateApplciation} 
               />
             </ProtectedRoute>

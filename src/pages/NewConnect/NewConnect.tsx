@@ -10,25 +10,25 @@ import ConnectList from '../ConnectList/ConnectList';
 interface ConnectProps {
   user: User | null;
   appStatus: Connect[];
-  handleAddApp: (AppEntry: AppEntry) => void
+  handleAddApp: (AppEntry: AppEntryFormData) => void
   handleDeleteApplication: (appId: number) => void
-  handleUpdateApplication: (appId: number) => void
+  // handleUpdateApplication: (appId: number) => void
 }
 
-interface AppEntry {
-  date?: Date;
-  company: string;
-  position: string;
-  followUp: string;
-  interview: string;
-  response: string;
-}
+// interface AppEntry {
+//   date?: string;
+//   company: string;
+//   position: string;
+//   followUp?: string;
+//   interview?: string;
+//   response?: string;
+// }
 
-const NewConnect = (props: ConnectProps): JSX.Element => {
-  const { user, appStatus } = props
+const NewConnect: React.FC<ConnectProps> = ({ user, appStatus, handleAddApp, handleDeleteApplication}) => {
+  // const { user, appStatus } = props
 
-  const [formData, setFormData] = useState<AppEntry>({
-    date: new Date,
+  const [formData, setFormData] = useState<AppEntryFormData>({
+    date: '',
     company: '',
     position: '',
     followUp: '',
@@ -36,16 +36,29 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
     response: ''
   })
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [evt.target.name]: evt.target.value })
+  const [visible, setVisible] = useState(false)
+
+  const handleToggle = () => {
+    setVisible(!visible)
   }
 
-  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+    const { name, value } = evt.target
+    setFormData(state => ({
+      ...state, [name]: value
+    }))
+  }
+
+  // const handleEditApplication = async (evt: React.MouseEvent<HTMLButtonElement>) => {
+  //   evt.preventDefault()
+  //   setFormData(formData)
+  // }
+
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault()
-    props.handleAddApp(formData)
-    
+    handleAddApp(formData)
     setFormData({
-      date: new Date,
+      date: '',
       company: '',
       position: '',
       followUp: '',
@@ -54,68 +67,75 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
     })
   }
 
-  // if (!appStatus.length) 
-  // <p>No Applications To Track Yet</p>
-
   return (
     <main>
       <h1>Hello {user ? user.name : ''}</h1>
       <section>
         <h3>Track Your Applications</h3>
-        <form onSubmit={handleSubmit}>
-          {/* <label>Date:</label>
-          <input 
-            name='date'
-            type='date'
-            value={formData.date}
-            onChange={handleChange}
-          /> */}
-          <label>Company:</label>
-          <input 
-            name='company'
-            type='string'
-            value={formData.company}
-            onChange={handleChange}
-          />
-          <label>Position:</label>
-          <input 
-            name='position'
-            type='string'
-            value={formData.position}
-            onChange={handleChange}
-          />
-          <label>Follow Up:</label>
-          <input 
-            name='followUp'
-            type='string'
-            value={formData.followUp}
-            onChange={handleChange}
-            placeholder='true or false'
-          />
-          <label>Interview:</label>
-          <input 
-            name='interview'
-            type='string'
-            value={formData.interview}
-            onChange={handleChange}
-            placeholder='true or false'
-          />
-          <label>Response:</label>
-          <input 
-            name='response'
-            type='string'
-            value={formData.response}
-            onChange={handleChange}
-            placeholder='true or false'
-          />
-          <button>Submit</button>
-        </form>
+        <button onClick={handleToggle}>
+          Show
+        </button>
+        {!visible &&
+          <form autoComplete='off' onSubmit={handleSubmit}>
+            <label>Date:</label>
+            <input 
+              name='date'
+              type='date'
+              value={formData.date}
+              onChange={handleChange}
+            />
+            <label>Company:</label>
+            <input 
+              name='company'
+              type='text'
+              value={formData.company}
+              onChange={handleChange}
+            />
+            <label>Position:</label>
+            <input 
+              name='position'
+              type='test'
+              value={formData.position}
+              onChange={handleChange}
+            />
+            <label>Follow Up:</label>
+            <input 
+              name='followUp'
+              type='text'
+              value={formData.followUp}
+              onChange={handleChange}
+              placeholder='Yes or No'
+            />
+            <label>Interview:</label>
+            <input 
+              name='interview'
+              type='text'
+              value={formData.interview}
+              onChange={handleChange}
+              placeholder='Yes or No'
+            />
+            <label>Response:</label>
+            <input 
+              name='response'
+              type='text'
+              value={formData.response}
+              onChange={handleChange}
+              placeholder='Yes or No'
+            />
+            <button>Submit</button>
+          </form>
+        }
       </section>
-        <ConnectList 
+      {appStatus.map((appStatus: Connect) => (
+        <ConnectList
+          user={user}
+          key={appStatus.id}
           appStatus={appStatus}
-          handleDeleteApplication={props.handleDeleteApplication}
-          handleUpdateApplication={props.handleUpdateApplication}
+          handleDeleteApplication={handleDeleteApplication}
+          // handleUpdateApplication={props.handleUpdateApplication}
+          // handleEditApplication={handleEditApplication}
         />
+        ))}
     </main>
   )
 }
