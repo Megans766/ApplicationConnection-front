@@ -54,28 +54,31 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
       <h1>Hello {user ? user.name : ''}</h1>
         <h3>Track Your Applications</h3>
           <form autoComplete='off' onSubmit={handleSubmit}>
-            <label>Date:</label>
+            <label>Date:
             <input 
               name='date'
               type='date'
               value={formData.date}
               onChange={handleChange}
             />
-            <label>Company:</label>
+            </label>
+            <label>Company:
             <input 
               name='company'
               type='text'
               value={formData.company}
               onChange={handleChange}
             />
-            <label>Position:</label>
+            </label>
+            <label>Position:
             <input 
               name='position'
               type='test'
               value={formData.position}
               onChange={handleChange}
             />
-            <label>Follow Up:</label>
+            </label>
+            <label>Follow Up:
             <input 
               name='followUp'
               type='text'
@@ -83,7 +86,8 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
               onChange={handleChange}
               placeholder='Yes or No'
             />
-            <label>Interview:</label>
+            </label>
+            <label>Interview:
             <input 
               name='interview'
               type='text'
@@ -91,7 +95,8 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
               onChange={handleChange}
               placeholder='Yes or No'
             />
-            <label>Response:</label>
+            </label>
+            <label>Response:
             <input 
               name='response'
               type='text'
@@ -99,6 +104,7 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
               onChange={handleChange}
               placeholder='Yes or No'
             />
+            </label>
             <button>Submit</button>
           </form>
           <ConnectList 

@@ -30,51 +30,57 @@ const EditConnect = (props: EditConnectProps): JSX.Element => {
       <section className={styles.container}>
         <h1>Update This Appliaction</h1>
         <form autoComplete='off' onSubmit={hanldeSubmit}>
-            <label>Date:</label>
-            <input 
-              name='date'
-              type='date'
-              value={formData.date}
-              onChange={handleChange}
-            />
-            <label>Company:</label>
-            <input 
-              name='company'
-              type='string'
-              value={formData.company}
-              onChange={handleChange}
-            />
-            <label>Position:</label>
-            <input 
-              name='position'
-              type='string'
-              value={formData.position}
-              onChange={handleChange}
-            />
-            <label>Follow Up:</label>
-            <input 
-              name='followUp'
-              type='string'
-              value={formData.followUp}
-              onChange={handleChange}
-              placeholder='Yes or No'
-            />
-            <label>Interview:</label>
-            <input 
-              name='interview'
-              type='string'
-              value={formData.interview}
-              onChange={handleChange}
-              placeholder='Yes or No'
-            />
-            <label>Response:</label>
-            <input 
-              name='response'
-              type='string'
-              value={formData.response}
-              onChange={handleChange}
-              placeholder='Yes or No'
-            />
+            <label>Date:
+              <input 
+                name='date'
+                type='date'
+                value={formData.date}
+                onChange={handleChange}
+              />
+            </label>
+            <label>Company:
+              <input 
+                name='company'
+                type='string'
+                value={formData.company}
+                onChange={handleChange}
+              />
+            </label>
+            <label>Position:
+              <input 
+                name='position'
+                type='string'
+                value={formData.position}
+                onChange={handleChange}
+              />
+            </label>
+            <label>Follow Up:
+              <input 
+                name='followUp'
+                type='string'
+                value={formData.followUp}
+                onChange={handleChange}
+                placeholder='Yes or No'
+              />
+            </label>
+            <label>Interview:
+              <input 
+                name='interview'
+                type='string'
+                value={formData.interview}
+                onChange={handleChange}
+                placeholder='Yes or No'
+              />
+            </label>
+            <label>Response:
+              <input 
+                name='response'
+                type='string'
+                value={formData.response}
+                onChange={handleChange}
+                placeholder='Yes or No'
+              />
+            </label>
             <button>Submit</button>
           </form>
       </section>

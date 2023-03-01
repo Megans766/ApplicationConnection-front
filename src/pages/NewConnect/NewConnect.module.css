@@ -7,22 +7,31 @@ background: linear-gradient(to right, #0f3443, #34e89e);
   margin: 40px;
 }
 
+.container h3 {
+  font-size: 25px;
+}
+
 .container form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   background-color: burlywood;
-  height: 120px;
-  width: 1000px;
   border: 2px solid blueviolet;
-  padding: 10px;
-  margin: 10px auto;
+  padding: 20px;
+  width: 350px;
+  margin: 6px auto;
 }
 
 .container label, input {
-  margin: 10px;
+  margin: 8px;
   text-align: center;
   vertical-align: center;
   border: none;
   border-radius: 10px;
   height: 20px;
+  padding: 4px;
 }
 
 .container button {
@@ -33,4 +42,26 @@ width: 70px;
 background: blueviolet;
 font-weight: 750;
 margin: 15px;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    width: 80%;
+    height: 200px;
+  }
+
+  .container form {
+    justify-content: center;
+    /* align-items: center; */
+  }
+
+  .container label, input {
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  }
+
+.container button {
+  margin: 20px;
+}
 }

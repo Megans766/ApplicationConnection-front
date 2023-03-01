@@ -1,10 +1,15 @@
 .container form {
   background-color: burlywood;
-  height: 120px;
-  width: 900px;
+  align-items: center;
+  justify-content: center;
   border: 2px solid blueviolet;
   padding: 10px;
+  width: 300px;
   margin: 80px auto;
+}
+
+.container label {
+  margin: 6px 10px;
 }
 
 .container h1 {
@@ -21,4 +26,11 @@
   font-weight: 750;
   margin: 15px;
   font-size: 16px;
+  }
+
+  @media screen and (max-width: 800px) {
+    .container form {
+      display: flex;
+      flex-direction: column;
+    }
   }

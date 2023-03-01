@@ -22,7 +22,7 @@ const ConnectCard = (props: ConnectCardProps): JSX.Element => {
       <h3>Application Status</h3>
       <div className={styles.card}>
         {appStatus.map((app: Connect) =>
-          <div key={app.id} className={styles.InputContainer}>
+          <div key={app.id} className={styles.ListContainer}>
             <p>Date: {props.date}</p>
             <p>Company: {app.company}</p>
             <p>Position: {app.position}</p>
