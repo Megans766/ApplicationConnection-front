@@ -104,7 +104,7 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
           <ConnectList 
         user={user}
         appStatus={appStatus}
-        handleDeleteApplication={props.handleDeleteApplication} company={''} position={''} followUp={''} interview={''} response={''}          />
+        handleDeleteApplication={props.handleDeleteApplication} date={''} company={''} position={''} followUp={''} interview={''} response={''}          />
     </main>
   )
 }

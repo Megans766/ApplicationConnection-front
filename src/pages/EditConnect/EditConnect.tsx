@@ -9,9 +9,9 @@ interface EditConnectProps {
 const EditConnect = (props: EditConnectProps): JSX.Element => {
 
   const location = useLocation()
-  const { connect } = location.state
+  const { app }  = location.state
   
-  const [formData, setFormData] = useState<AppEntryFormData>(connect)
+  const [formData, setFormData] = useState<AppEntryFormData>(app)
   
   const navigate = useNavigate()
   
@@ -74,8 +74,8 @@ const EditConnect = (props: EditConnectProps): JSX.Element => {
               onChange={handleChange}
               placeholder='Yes or No'
             />
+            <button>Submit</button>
           </form>
-          <button type='submit'>Submit</button>
       </section>
     </main>
   )
