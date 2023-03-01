@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { AppEntryFormData } from '../../types/forms'
+import styles from './EditConnect.module.css'
 
 interface EditConnectProps {
   handleUpdateApplication: (formData: AppEntryFormData) => void
@@ -26,9 +27,9 @@ const EditConnect = (props: EditConnectProps): JSX.Element => {
 
   return (
     <main>
-      <h1>Update This Appliaction</h1>
-      <section>
-      <form autoComplete='off' onSubmit={hanldeSubmit}>
+      <section className={styles.container}>
+        <h1>Update This Appliaction</h1>
+        <form autoComplete='off' onSubmit={hanldeSubmit}>
             <label>Date:</label>
             <input 
               name='date'

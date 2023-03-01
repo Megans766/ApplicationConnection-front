@@ -1,13 +1,7 @@
-// npm modules
 import { useState } from 'react'
-
-// components
 import LoginForm from '../../components/LoginForm/LoginForm'
-
-// stylesheets
 import styles from './Login.module.css'
 
-// types
 interface LoginPageProps {
   handleAuthEvt: () => void;
 } 

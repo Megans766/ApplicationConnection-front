@@ -1,0 +1,24 @@
+.container form {
+  background-color: burlywood;
+  height: 120px;
+  width: 900px;
+  border: 2px solid blueviolet;
+  padding: 10px;
+  margin: 80px auto;
+}
+
+.container h1 {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.container button {
+  border: none;
+  border-radius: 10px;
+  height:30px;
+  width: 90px;
+  background: blueviolet;
+  font-weight: 750;
+  margin: 15px;
+  font-size: 16px;
+  }

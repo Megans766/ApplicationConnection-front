@@ -22,13 +22,13 @@ const ConnectCard = (props: ConnectCardProps): JSX.Element => {
       <h3>Application Status</h3>
       <div className={styles.card}>
         {appStatus.map((app: Connect) =>
-          <div key={app.id}>
-            <p>{props.date}</p>
-            <p>{app.company}</p>
-            <p>{app.position}</p>
-            <p>{app.followUp}</p>
-            <p>{app.interview}</p>
-            <p>{app.response}</p>
+          <div key={app.id} className={styles.InputContainer}>
+            <p>Date: {props.date}</p>
+            <p>Company: {app.company}</p>
+            <p>Position: {app.position}</p>
+            <p>Followed Up: {app.followUp}</p>
+            <p>Interview: {app.interview}</p>
+            <p>Employer Response: {app.response}</p>
             {app.profileId === user?.profile.id &&
             <div>
               <Link to={`/connects/${app.id}`} state={{app}}>
@@ -39,7 +39,7 @@ const ConnectCard = (props: ConnectCardProps): JSX.Element => {
               </button>
             </div>
             }
-          </div>
+            </div>
         )}
       </div>
     </article>

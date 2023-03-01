@@ -4,7 +4,8 @@
   justify-content: center;
   flex-direction: column;
   background-color: burlywood;
-  height: 300px;
-  width: 800px;
-  margin: 50px auto;
+  height: 280px;
+  width: 740px;
+  margin: 70px auto;
+  border-radius: 20px;
 }

@@ -1,18 +1,22 @@
 html {
-background-color: lightsalmon;
+background: linear-gradient(to right, #0f3443, #34e89e);
 }
 
-.container h1 {
+.container h1, h3 {
   text-align: center;
+  margin: 40px;
 }
 
-.card form {
+.container form {
   background-color: burlywood;
-  height: 100px;
+  height: 120px;
+  width: 1000px;
   border: 2px solid blueviolet;
+  padding: 10px;
+  margin: 10px auto;
 }
 
-.card label, input {
+.container label, input {
   margin: 10px;
   text-align: center;
   vertical-align: center;
@@ -21,7 +25,7 @@ background-color: lightsalmon;
   height: 20px;
 }
 
-.card button, .container button {
+.container button {
 border: none;
 border-radius: 10px;
 height:30px;
