@@ -9,6 +9,7 @@ import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
 import NewConnect from './pages/NewConnect/NewConnect'
+import EditConnect from './pages/EditConnect/EditConnect'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -24,7 +25,6 @@ import './App.css'
 // types
 import { Connect, User } from './types/models'
 import { AppEntryFormData } from './types/forms'
-import EditConnect from './pages/EditConnect/EditConnect'
 
 function App(): JSX.Element {
   const navigate = useNavigate()
@@ -49,7 +49,6 @@ function App(): JSX.Element {
 
   const handleUpdateApplciation = async (formData: AppEntryFormData): Promise<void> => {
     await connectService.update(formData)
-
     const updatedAppList = await connectService.index()
     setAppStatus(updatedAppList)
     navigate('/connects')

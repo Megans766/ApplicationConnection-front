@@ -1,4 +1,5 @@
 /* ---------==== custom forms ====--------- */
+
 export interface AppEntryFormData {
   id?: number;
   date?: string;

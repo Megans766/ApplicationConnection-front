@@ -49,4 +49,8 @@ async function getProfile(): Promise<Profile[]> {
   }
 }
 
-export { getAllProfiles, addPhoto, getProfile }
+export { 
+  getAllProfiles, 
+  addPhoto, 
+  getProfile 
+}

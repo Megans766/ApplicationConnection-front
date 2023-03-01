@@ -17,7 +17,6 @@
 .container nav li {
   margin-left: 100px;
   display: inline-block
-  
 }
 
 @media screen and (max-width: 800px) {

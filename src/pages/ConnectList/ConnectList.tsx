@@ -1,5 +1,10 @@
+//npm packages
 import { Link } from "react-router-dom"
+
+//types
 import { Connect, User } from "../../types/models"
+
+//stylesheets
 import styles from './ConnectList.module.css'
 
 interface ConnectCardProps {
@@ -30,16 +35,16 @@ const ConnectCard = (props: ConnectCardProps): JSX.Element => {
             <p>Interview: {app.interview}</p>
             <p>Employer Response: {app.response}</p>
             {app.profileId === user?.profile.id &&
-            <div>
-              <Link to={`/connects/${app.id}`} state={{app}}>
-                <button>Edit Application</button>
-              </Link>
-              <button onClick={() => props.handleDeleteApplication(app.id)}>
-                Delete Applicaiton
-              </button>
-            </div>
+              <div>
+                <Link to={`/connects/${app.id}`} state={{app}}>
+                  <button>Edit Application</button>
+                </Link>
+                <button onClick={() => props.handleDeleteApplication(app.id)}>
+                  Delete Applicaiton
+                </button>
+              </div>
             }
-            </div>
+          </div>
         )}
       </div>
     </article>

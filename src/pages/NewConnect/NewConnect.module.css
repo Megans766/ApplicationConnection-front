@@ -1,5 +1,5 @@
 html {
-background: linear-gradient(to right, #0f3443, #34e89e);
+  background: linear-gradient(to right, #0f3443, #34e89e);
 }
 
 .container h1, h3 {
@@ -35,13 +35,13 @@ background: linear-gradient(to right, #0f3443, #34e89e);
 }
 
 .container button {
-border: none;
-border-radius: 10px;
-height:30px;
-width: 70px;
-background: blueviolet;
-font-weight: 750;
-margin: 15px;
+  border: none;
+  border-radius: 10px;
+  height:30px;
+  width: 70px;
+  background: blueviolet;
+  font-weight: 750;
+  margin: 15px;
 }
 
 @media screen and (max-width: 800px) {
@@ -52,16 +52,15 @@ margin: 15px;
 
   .container form {
     justify-content: center;
-    /* align-items: center; */
   }
 
   .container label, input {
-  margin: 10px;
-  justify-content: center;
-  align-items: center;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
   }
 
-.container button {
-  margin: 20px;
-}
+  .container button {
+    margin: 20px;
+  }
 }

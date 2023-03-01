@@ -25,12 +25,12 @@
   background: blueviolet;
   font-weight: 750;
   margin: 15px 5px;
-  }
+}
 
-  .ListContainer {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    border: 2px solid blueviolet;
-    background-color: burlywood;
-  }
+.ListContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  border: 2px solid blueviolet;
+  background-color: burlywood;
+}

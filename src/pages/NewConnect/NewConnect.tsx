@@ -1,7 +1,13 @@
+// npm packages
 import { useState } from 'react'
-import { AppEntryFormData } from '../../types/forms';
+
+// stylesheets
 import styles from './NewConnect.module.css'
+
+// types
 import { Connect, User } from '../../types/models'
+
+//components
 import ConnectList from '../ConnectList/ConnectList';
 
 interface ConnectProps {
@@ -52,68 +58,68 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
   return (
     <main className={styles.container}>
       <h1>Hello {user ? user.name : ''}</h1>
-        <h3>Track Your Applications</h3>
-          <form autoComplete='off' onSubmit={handleSubmit}>
-            <label>Date:
-            <input 
-              name='date'
-              type='date'
-              value={formData.date}
-              onChange={handleChange}
-            />
-            </label>
-            <label>Company:
-            <input 
-              name='company'
-              type='text'
-              value={formData.company}
-              onChange={handleChange}
-            />
-            </label>
-            <label>Position:
-            <input 
-              name='position'
-              type='test'
-              value={formData.position}
-              onChange={handleChange}
-            />
-            </label>
-            <label>Follow Up:
-            <input 
-              name='followUp'
-              type='text'
-              value={formData.followUp}
-              onChange={handleChange}
-              placeholder='Yes or No'
-            />
-            </label>
-            <label>Interview:
-            <input 
-              name='interview'
-              type='text'
-              value={formData.interview}
-              onChange={handleChange}
-              placeholder='Yes or No'
-            />
-            </label>
-            <label>Response:
-            <input 
-              name='response'
-              type='text'
-              value={formData.response}
-              onChange={handleChange}
-              placeholder='Yes or No'
-            />
-            </label>
-            <button>Submit</button>
-          </form>
-          <ConnectList 
-            user={user}
-            appStatus={appStatus}
-            handleDeleteApplication={props.handleDeleteApplication} 
-            date={''} company={''} position={''} 
-            followUp={''} interview={''} response={''}
+      <h3>Track Your Applications</h3>
+      <form autoComplete='off' onSubmit={handleSubmit}>
+        <label>Date:
+          <input 
+            name='date'
+            type='date'
+            value={formData.date}
+            onChange={handleChange}
           />
+        </label>
+        <label>Company:
+          <input 
+            name='company'
+            type='text'
+            value={formData.company}
+            onChange={handleChange}
+          />
+        </label>
+        <label>Position:
+          <input 
+            name='position'
+            type='test'
+            value={formData.position}
+            onChange={handleChange}
+          />
+        </label>
+        <label>Follow Up:
+          <input 
+            name='followUp'
+            type='text'
+            value={formData.followUp}
+            onChange={handleChange}
+            placeholder='Yes or No'
+          />
+        </label>
+        <label>Interview:
+          <input 
+            name='interview'
+            type='text'
+            value={formData.interview}
+            onChange={handleChange}
+            placeholder='Yes or No'
+          />
+        </label>
+        <label>Response:
+          <input 
+            name='response'
+            type='text'
+            value={formData.response}
+            onChange={handleChange}
+            placeholder='Yes or No'
+          />
+        </label>
+        <button>Submit</button>
+      </form>
+      <ConnectList 
+        user={user}
+        appStatus={appStatus}
+        handleDeleteApplication={props.handleDeleteApplication} 
+        date={''} company={''} position={''} 
+        followUp={''} interview={''} response={''}
+      />
     </main>
   )
 }
