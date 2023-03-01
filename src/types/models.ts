@@ -1,6 +1,7 @@
 /* ---------===== custom props ====--------- */
 
 export interface Connect {
+  id: any;
   date: Date;
   company: string;
   position: string;

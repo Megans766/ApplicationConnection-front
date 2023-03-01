@@ -1,9 +1,8 @@
 // services
-import { AppEntryFormData } from '../types/forms'
 import * as tokenService from './tokenService'
 
 // types
-// import { AppEntryFormData } from '../types/forms'
+import { AppEntryFormData } from '../types/forms'
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/connects`
 
@@ -37,9 +36,9 @@ async function index(): Promise<any> {
   }
 }
 
-async function update(formData: any, appId: number): Promise<any> {
+async function update(formData: AppEntryFormData): Promise<any> {
   try {
-    const res = await fetch(`${BASE_URL}/${appId}`, {
+    const res = await fetch(`${BASE_URL}/${formData.id}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${tokenService.getToken()}`,

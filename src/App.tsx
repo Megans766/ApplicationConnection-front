@@ -24,6 +24,7 @@ import './App.css'
 // types
 import { Connect, User } from './types/models'
 import { AppEntryFormData } from './types/forms'
+import EditConnect from './pages/EditConnect/EditConnect'
 
 function App(): JSX.Element {
   const navigate = useNavigate()
@@ -41,29 +42,23 @@ function App(): JSX.Element {
   }, [])
 
   const handleAddApp = async (formData: AppEntryFormData): Promise<void> => {
-    const newApp: Connect = await connectService.create(formData)
+    const newApp = await connectService.create(formData)
     setAppStatus([newApp, ...appStatus])
     navigate('/connects')
   }
 
-  const handleUpdateApplciation = async (appId: number) => {
-    const appData = {
-      isComplete: true
-    }
-    const updatedApp = await connectService.update(appData, appId)
-    const updatedAppList = appStatus.map((app: any) => {
-      return app.id === updatedApp.appId
-      ? updatedApp
-      : app
-      })
+  const handleUpdateApplciation = async (formData: AppEntryFormData): Promise<void> => {
+    await connectService.update(formData)
+
+    const updatedAppList = await connectService.index()
     setAppStatus(updatedAppList)
+    navigate('/connects')
   }
 
   const handleDeleteApplication = async (appId: number): Promise<void> => {
     try {
       await connectService.deleteAppEntry(appId)
-      const updatedAppList = appStatus.filter((app: any) => app.id === appId)
-      setAppStatus(updatedAppList)
+      setAppStatus((allApps) => allApps.filter((app) => app.id !== appId))
     } catch (error) {
       console.log(error)
     }
@@ -117,8 +112,15 @@ function App(): JSX.Element {
                 appStatus={appStatus}
                 handleAddApp={handleAddApp}
                 handleDeleteApplication={handleDeleteApplication}
-                handleUpdateApplication={handleUpdateApplciation} 
               />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/connects/:id'
+          element={
+            <ProtectedRoute user={user}>
+              <EditConnect handleUpdateApplication={handleUpdateApplciation}/>
             </ProtectedRoute>
           }
         />

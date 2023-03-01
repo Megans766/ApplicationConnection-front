@@ -1,0 +1,20 @@
+.card article {
+  display: flew;
+  flex-direction: column;
+  border: 2px solid blueviolet;
+  background-color: burlywood;
+  height: 300px;
+  width: 250px;
+  padding: 5px;
+  text-align: center;
+}
+
+.card button, .container button {
+  border: none;
+  border-radius: 10px;
+  height:45px;
+  width: 100px;
+  background: blueviolet;
+  font-weight: 750;
+  margin: 15px 5px;
+  }

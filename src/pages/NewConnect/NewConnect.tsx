@@ -1,10 +1,7 @@
-//npm modules
 import { useState } from 'react'
 import { AppEntryFormData } from '../../types/forms';
-
-//types 
+import styles from './NewConnect.module.css'
 import { Connect, User } from '../../types/models'
-
 import ConnectList from '../ConnectList/ConnectList';
 
 interface ConnectProps {
@@ -12,11 +9,10 @@ interface ConnectProps {
   appStatus: Connect[];
   handleAddApp: (AppEntry: AppEntry) => void
   handleDeleteApplication: (appId: number) => void
-  handleUpdateApplication: (appId: number) => void
 }
 
 interface AppEntry {
-  date?: Date;
+  date?: '';
   company: string;
   position: string;
   followUp: string;
@@ -28,7 +24,7 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
   const { user, appStatus } = props
 
   const [formData, setFormData] = useState<AppEntry>({
-    date: new Date,
+    date: '',
     company: '',
     position: '',
     followUp: '',
@@ -36,16 +32,15 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
     response: ''
   })
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
-  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
+  const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
     evt.preventDefault()
     props.handleAddApp(formData)
-    
     setFormData({
-      date: new Date,
+      date: '',
       company: '',
       position: '',
       followUp: '',
@@ -54,68 +49,62 @@ const NewConnect = (props: ConnectProps): JSX.Element => {
     })
   }
 
-  // if (!appStatus.length) 
-  // <p>No Applications To Track Yet</p>
-
   return (
-    <main>
+    <main className={styles.container}>
       <h1>Hello {user ? user.name : ''}</h1>
-      <section>
         <h3>Track Your Applications</h3>
-        <form onSubmit={handleSubmit}>
-          {/* <label>Date:</label>
-          <input 
-            name='date'
-            type='date'
-            value={formData.date}
-            onChange={handleChange}
-          /> */}
-          <label>Company:</label>
-          <input 
-            name='company'
-            type='string'
-            value={formData.company}
-            onChange={handleChange}
-          />
-          <label>Position:</label>
-          <input 
-            name='position'
-            type='string'
-            value={formData.position}
-            onChange={handleChange}
-          />
-          <label>Follow Up:</label>
-          <input 
-            name='followUp'
-            type='string'
-            value={formData.followUp}
-            onChange={handleChange}
-            placeholder='true or false'
-          />
-          <label>Interview:</label>
-          <input 
-            name='interview'
-            type='string'
-            value={formData.interview}
-            onChange={handleChange}
-            placeholder='true or false'
-          />
-          <label>Response:</label>
-          <input 
-            name='response'
-            type='string'
-            value={formData.response}
-            onChange={handleChange}
-            placeholder='true or false'
-          />
-          <button>Submit</button>
-        </form>
-      </section>
-        <ConnectList 
-          appStatus={appStatus}
-          handleDeleteApplication={props.handleDeleteApplication}
-          handleUpdateApplication={props.handleUpdateApplication}
-        />
+          <form autoComplete='off' onSubmit={handleSubmit}>
+            <label>Date:</label>
+            <input 
+              name='date'
+              type='date'
+              value={formData.date}
+              onChange={handleChange}
+            />
+            <label>Company:</label>
+            <input 
+              name='company'
+              type='text'
+              value={formData.company}
+              onChange={handleChange}
+            />
+            <label>Position:</label>
+            <input 
+              name='position'
+              type='test'
+              value={formData.position}
+              onChange={handleChange}
+            />
+            <label>Follow Up:</label>
+            <input 
+              name='followUp'
+              type='text'
+              value={formData.followUp}
+              onChange={handleChange}
+              placeholder='Yes or No'
+            />
+            <label>Interview:</label>
+            <input 
+              name='interview'
+              type='text'
+              value={formData.interview}
+              onChange={handleChange}
+              placeholder='Yes or No'
+            />
+            <label>Response:</label>
+            <input 
+              name='response'
+              type='text'
+              value={formData.response}
+              onChange={handleChange}
+              placeholder='Yes or No'
+            />
+            <button>Submit</button>
+          </form>
+          <ConnectList 
+        user={user}
+        appStatus={appStatus}
+        handleDeleteApplication={props.handleDeleteApplication} company={''} position={''} followUp={''} interview={''} response={''}          />
     </main>
   )
 }

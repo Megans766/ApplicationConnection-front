@@ -1,0 +1,32 @@
+html {
+background-color: lightsalmon;
+}
+
+.container h1 {
+  text-align: center;
+}
+
+.card form {
+  background-color: burlywood;
+  height: 100px;
+  border: 2px solid blueviolet;
+}
+
+.card label, input {
+  margin: 10px;
+  text-align: center;
+  vertical-align: center;
+  border: none;
+  border-radius: 10px;
+  height: 20px;
+}
+
+.card button, .container button {
+border: none;
+border-radius: 10px;
+height:30px;
+width: 70px;
+background: blueviolet;
+font-weight: 750;
+margin: 15px;
+}
